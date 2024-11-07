@@ -1,0 +1,71 @@
+Project 3 - I think we will go with path 1
+
+Kan velge eget dataset:  you can propose own data sets that relate to your research interests
+* 3. Or other sources.
+  4. Or you can propose own problems (but please do write to us before you
+  start)
+
+
+Kan enten ha regressjon eller klassifiering -> Tror vi gjør et klassifieringsproblem -> søvn apnea deteksjon
+  Må implementere to problemer som er diskutert så langt i kurset:
+  * en av de må være CNN (oppgaven min)
+  *  En av de andre kan være:
+        * Linear regression (including Ridge and Lasso),
+        * Logistic Regression
+        * Neural Networks
+        * Recurrent Neural Networks
+        * Decision Trees
+        * Random Forests
+        * Bagging and Boosting
+
+Feel also free to use support vector machines, k-means and principal components
+analysis, although the latter have not been covered during the lectures. This
+material can be found in the lecture notes.
+
+You could for example explore all of the approaches from decision trees, via
+bagging and voting classifiers, to random forests, boosting and finally XGboost.
+
+
+Hva den må ha:
+    1. For project 3, you should feel free to use your own codes from projects 1 and
+    2, eventually write your own for Decision trees/random forests/bagging/boosting’
+    or use the available functionality of Scikit-Learn, Tensorflow, PyTorch
+    etc.
+
+    2. The estimates you used and tested in projects 1 and 2 should also be
+    included, that is the R2-score, MSE, confusion matrix, accuracy score,
+    information gain, ROC and Cumulative gains curves and other, crossvalidation and/or bootstrap if these are relevant.
+
+    3. Similarly, feel free to explore various activations functions in deep learning
+    and various approachs to stochastic gradient descent approaches.
+
+    4. If possible, you should link the data sets with exisiting research and analyses
+    thereof. Scientific articles which have used Machine Learning algorithms
+    to analyze the data are highly welcome. Perhaps you can improve previous
+    analyses and even publish a new article?
+
+    5. A critical assessment of the methods with ditto perspectives and recommendations is also something you need to include.
+
+All in all, the report should follow the same pattern as the two previous ones,
+with abstract, introduction, methods, code, results, conclusions etc..
+
+Basic structure of the project:
+Here follows a set up on how to structure your report and analyze the data you
+have opted for.
+
+    Part a). The first part deals with structuring and reading the data, much
+    along the same lines as done in projects 1 and 2. Explain how the data are
+    produced and place them in a proper context.
+
+    Part b). You need to include at least two central algorithms, or as an alternative explore methods from decisions tree to bagging, random forests and
+    boosting. Explain the basics of the methods you have chosen to work with. This
+    would be your theory part.
+
+    Part c). Then describe your algorithm and its implementation and tests you
+    have performed.
+
+    Part d). Then presents your results and findings, link with existing literature
+    and more.
+
+    Part e). Finally, here you should present a critical assessment of the methods
+    you have studied and link your results with the existing literature.

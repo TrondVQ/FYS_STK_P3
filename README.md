@@ -1,6 +1,4 @@
-# FYSTK4155 - Project 3
-
-## FYS-STK4155 - Applied Data Analysis and Machine Learning - Autumn 2024
+# FYSTK4155 Autumn 2024 - Project 3  Data Analysis with Machine Learning
 
 ### Installation
 To set up the project locally, follow these steps:
