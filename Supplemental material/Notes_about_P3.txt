@@ -9,13 +9,14 @@ Kan velge eget dataset:  you can propose own data sets that relate to your resea
 Kan enten ha regressjon eller klassifiering -> Tror vi gjør et klassifieringsproblem -> søvn apnea deteksjon
   Må implementere to problemer som er diskutert så langt i kurset:
   * en av de må være CNN (oppgaven min)
+    * 1 dimentional - time series. CNN will exstract features from the time series data
   *  En av de andre kan være:
-        * Linear regression (including Ridge and Lasso),
-        * Logistic Regression
-        * Neural Networks
-        * Recurrent Neural Networks
-        * Decision Trees
-        * Random Forests
+        * Logistic Regression -> evt denne -> here i have to extract features from the time series data
+        * Neural Networks -> evt bare denne. Feed forward neural network
+        * Recurrent Neural Networks -> More complex
+        * Random Forests -> Kanskje denne? -> here i have to extract features from the time series data
+           * Decision Trees
+
         * Bagging and Boosting
 
 Feel also free to use support vector machines, k-means and principal components
