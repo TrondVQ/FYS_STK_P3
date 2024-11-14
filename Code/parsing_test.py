@@ -180,7 +180,7 @@ def segment_and_label_edf_data(edf_df, xml_annontations_df, window_size=30):
 #EDF
 
 #Currently a direct file, otherwise will have a id and for loop
-edf_path = "/Users/tvq/Documents/FYS_STK_P3/SHHS_dataset/shhs1-200001.edf"
+edf_path = "../SHHS_dataset/shhs1-200001.edf"
 
 #Load the relevant channels
 sleep_ap_channels = ["SaO2", "EMG", "NEW AIR", "ABDO RES"]
@@ -201,7 +201,7 @@ pd_resampled_edf_signals = pd.DataFrame(resampled_edf_signals)
 #pd_resampled_edf_signals.to_csv("edf_df", encoding='utf-8', index=False)
 
 #XML
-xml_path = "/Users/tvq/Documents/FYS_STK_P3/SHHS_dataset/shhs1-200001-nsrr.xml"
+xml_path = "../SHHS_dataset/shhs1-200001-nsrr.xml"
 xml_annotations = parse_xml_annotations(xml_path)
 df_xml_annotations = pd.DataFrame(xml_annotations)
 #print(df_xml_annotations.head())
