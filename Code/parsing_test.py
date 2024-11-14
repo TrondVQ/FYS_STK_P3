@@ -7,10 +7,6 @@ from sklearn.preprocessing import StandardScaler
 
 # https://pyedflib.readthedocs.io/en/latest/ref/edfreader.html
 
-from defs import *
-#from .files import *
-#from sleepdata.config import getConfigLogger
-
 #LOGGER = getConfigLogger(__name__)
 
 # General EDF signal functions from Marta (one of my supervisors)
