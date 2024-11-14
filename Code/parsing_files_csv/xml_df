@@ -1,0 +1,372 @@
+event_type,event_concept,start,duration,signal_location
+,Recording Start Time,0.0,32520.0,
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,304.0,3.0,SaO2
+Arousals|Arousals,Arousal|Arousal (),964.8,25.4,EMG
+Arousals|Arousals,Arousal|Arousal (),1552.2,23.0,EMG
+Arousals|Arousals,Arousal|Arousal (),1595.2,9.7,EMG
+Arousals|Arousals,Arousal|Arousal (),1627.9,4.9,EMG
+Arousals|Arousals,Arousal|Arousal (),1751.0,10.8,EMG
+Arousals|Arousals,Arousal|Arousal (),1883.6,19.0,EMG
+Arousals|Arousals,Arousal|Arousal (),2066.1,11.4,EMG
+Arousals|Arousals,Arousal|Arousal (),2488.9,5.7,EMG
+Arousals|Arousals,Arousal|Arousal (),2628.3,11.9,EMG
+Arousals|Arousals,Arousal|Arousal (),2682.2,7.2,EMG
+Arousals|Arousals,Arousal|Arousal (),2838.8,3.9,EMG
+Arousals|Arousals,Arousal|Arousal (),3492.0,18.2,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,3510.9,10.4,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,3540.9,10.4,SaO2
+Arousals|Arousals,Arousal|Arousal (),3577.1,7.7,EMG
+Arousals|Arousals,Arousal|Arousal (),3595.4,9.3,EMG
+Arousals|Arousals,Arousal|Arousal (),3702.3,17.9,EMG
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,3763.0,11.0,SaO2
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,3784.0,6.0,SaO2
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,3798.0,48.9,SaO2
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,3886.0,5.0,SaO2
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,3920.0,4.0,SaO2
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,3954.0,7.0,SaO2
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,3991.8,38.6,SaO2
+Arousals|Arousals,Arousal|Arousal (),4281.7,23.5,EMG
+Arousals|Arousals,Arousal|Arousal (),4362.4,5.1,EMG
+Arousals|Arousals,Arousal|Arousal (),4402.0,23.2,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,4441.2,11.7,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),4470.9,6.7,EMG
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,4471.2,11.7,SaO2
+Arousals|Arousals,Arousal|Arousal (),4591.2,29.0,EMG
+Arousals|Arousals,Arousal|Arousal (),4646.8,7.9,EMG
+Arousals|Arousals,Arousal|Arousal (),4718.7,5.8,EMG
+Arousals|Arousals,Arousal|Arousal (),4740.8,29.4,EMG
+Arousals|Arousals,Arousal|Arousal (),4790.7,3.9,EMG
+Arousals|Arousals,Arousal|Arousal (),4805.7,4.0,EMG
+Arousals|Arousals,Arousal|Arousal (),4828.9,16.3,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,4851.7,23.4,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),4879.4,4.6,EMG
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,4881.7,23.4,SaO2
+Arousals|Arousals,Arousal|Arousal (),4900.5,3.9,EMG
+Arousals|Arousals,Arousal|Arousal (),4938.8,9.7,EMG
+Arousals|Arousals,Arousal|Arousal (),4957.4,5.3,EMG
+Arousals|Arousals,Arousal|Arousal (),5017.1,11.4,EMG
+Arousals|Arousals,Arousal|Arousal (),5105.2,4.3,EMG
+Arousals|Arousals,Arousal|Arousal (),5125.9,16.1,EMG
+Arousals|Arousals,Arousal|Arousal (),5155.2,20.0,EMG
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,5170.0,11.0,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,5205.1,15.2,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),5227.2,7.1,EMG
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,5235.1,15.2,SaO2
+Arousals|Arousals,Arousal|Arousal (),5265.4,7.5,EMG
+Arousals|Arousals,Arousal|Arousal (),5325.1,5.8,EMG
+Arousals|Arousals,Arousal|Arousal (),5351.2,6.1,EMG
+Arousals|Arousals,Arousal|Arousal (),5394.0,6.0,EMG
+Arousals|Arousals,Arousal|Arousal (),5425.7,7.0,EMG
+Arousals|Arousals,Arousal|Arousal (),5486.6,9.3,EMG
+Arousals|Arousals,Arousal|Arousal (),5513.6,3.6,EMG
+Arousals|Arousals,Arousal|Arousal (),5545.3,19.9,EMG
+Arousals|Arousals,Arousal|Arousal (),5622.5,10.8,EMG
+Arousals|Arousals,Arousal|Arousal (),5690.5,13.3,EMG
+Arousals|Arousals,Arousal|Arousal (),5731.8,3.1,EMG
+Arousals|Arousals,Arousal|Arousal (),5782.3,22.9,EMG
+Arousals|Arousals,Arousal|Arousal (),5888.1,5.5,EMG
+Arousals|Arousals,Arousal|Arousal (),5935.0,14.6,EMG
+Arousals|Arousals,Arousal|Arousal (),5969.5,4.6,EMG
+Arousals|Arousals,Arousal|Arousal (),5997.3,4.0,EMG
+Arousals|Arousals,Arousal|Arousal (),6033.5,5.8,EMG
+Arousals|Arousals,Arousal|Arousal (),6167.2,13.0,EMG
+Arousals|Arousals,Arousal|Arousal (),6195.9,14.3,EMG
+Arousals|Arousals,Arousal|Arousal (),6297.7,7.0,EMG
+Arousals|Arousals,Arousal|Arousal (),6326.2,5.5,EMG
+Arousals|Arousals,Arousal|Arousal (),6367.3,4.1,EMG
+Arousals|Arousals,Arousal|Arousal (),6408.9,9.1,EMG
+Arousals|Arousals,Arousal|Arousal (),6432.6,5.8,EMG
+Arousals|Arousals,Arousal|Arousal (),6759.7,20.3,EMG
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,6767.3,28.4,SaO2
+Arousals|Arousals,Arousal|Arousal (),6827.9,5.6,EMG
+Arousals|Arousals,Arousal|Arousal (),6855.6,8.0,EMG
+Arousals|Arousals,Arousal|Arousal (),7287.4,7.6,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,7294.0,19.0,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,7324.0,19.0,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,7680.3,37.9,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,7710.3,37.9,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,7747.8,25.9,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,7777.8,25.9,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,7788.3,30.9,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,7818.3,30.9,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,7837.0,34.0,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,7867.0,34.0,SaO2
+Arousals|Arousals,Arousal|Arousal (),7877.0,6.7,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,7899.4,31.6,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,7929.4,31.6,SaO2
+Arousals|Arousals,Arousal|Arousal (),7948.8,5.0,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,7962.0,94.4,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,7992.0,94.4,SaO2
+Arousals|Arousals,Arousal|Arousal (),8062.4,22.8,EMG
+Respiratory|Respiratory,Obstructive apnea|Obstructive Apnea,8146.4,39.4,ABDO RES
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,8176.4,39.4,SaO2
+Arousals|Arousals,Arousal|Arousal (),8185.3,19.9,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,8252.8,36.9,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,8282.8,36.9,SaO2
+Arousals|Arousals,Arousal|Arousal (),8299.1,7.1,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,8318.8,18.3,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),8338.4,7.8,EMG
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,8348.8,18.3,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,8366.0,23.0,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),8384.9,4.3,EMG
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,8396.0,23.0,SaO2
+Arousals|Arousals,Arousal|Arousal (),8400.8,3.4,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,8418.0,12.3,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),8420.7,5.0,EMG
+Arousals|Arousals,Arousal|Arousal (),8444.4,9.9,EMG
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,8448.0,12.3,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,8488.0,27.0,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),8513.9,21.3,EMG
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,8518.0,27.0,SaO2
+Arousals|Arousals,Arousal|Arousal (),8582.8,5.4,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,8601.1,19.0,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),8621.0,7.1,EMG
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,8631.1,19.0,SaO2
+Arousals|Arousals,Arousal|Arousal (),8646.8,4.3,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,8673.1,18.6,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),8695.4,5.5,EMG
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,8703.1,18.6,SaO2
+Arousals|Arousals,Arousal|Arousal (),8722.3,5.1,EMG
+Arousals|Arousals,Arousal|Arousal (),8749.2,4.8,EMG
+Arousals|Arousals,Arousal|Arousal (),8824.8,14.6,EMG
+Arousals|Arousals,Arousal|Arousal (),8854.8,7.5,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,8878.4,14.5,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,8908.4,14.5,SaO2
+Arousals|Arousals,Arousal|Arousal (),8914.9,6.5,EMG
+Arousals|Arousals,Arousal|Arousal (),8973.7,5.6,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,8991.0,13.0,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,9021.0,13.0,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,9066.0,29.0,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,9096.0,29.0,SaO2
+Arousals|Arousals,Arousal|Arousal (),9096.5,7.4,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,9106.7,12.9,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),9128.1,22.1,EMG
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,9136.7,12.9,SaO2
+Arousals|Arousals,Arousal|Arousal (),9275.7,7.3,EMG
+Arousals|Arousals,Arousal|Arousal (),9326.1,19.1,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,9620.0,10.0,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,9650.0,10.0,SaO2
+Arousals|Arousals,Arousal|Arousal (),9731.8,18.4,EMG
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,9913.0,29.0,SaO2
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,9947.3,55.0,SaO2
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,10007.0,8.0,SaO2
+Arousals|Arousals,Arousal|Arousal (),10279.7,8.1,EMG
+Arousals|Arousals,Arousal|Arousal (),13181.8,5.9,EMG
+Arousals|Arousals,Arousal|Arousal (),13617.2,9.6,EMG
+Arousals|Arousals,Arousal|Arousal (),13734.2,21.0,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,13827.0,21.0,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),13852.4,10.0,EMG
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,13857.0,21.0,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,13878.6,28.1,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,13908.6,28.1,SaO2
+Respiratory|Respiratory,Obstructive apnea|Obstructive Apnea,13923.1,13.9,ABDO RES
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,13953.1,13.9,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,13986.9,14.5,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),14011.0,4.6,EMG
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,14016.9,14.5,SaO2
+Arousals|Arousals,Arousal|Arousal (),14084.6,13.6,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,14104.4,78.0,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,14134.4,78.0,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,14207.0,15.5,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,14237.0,15.5,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,14291.0,11.0,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,14321.0,11.0,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,14508.9,26.5,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,14538.9,26.5,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,14558.2,66.0,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,14588.2,66.0,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,14649.4,104.9,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,14679.4,104.9,SaO2
+Arousals|Arousals,Arousal|Arousal (),14758.3,5.3,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,14778.6,52.1,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,14808.6,52.1,SaO2
+Arousals|Arousals,Arousal|Arousal (),14831.9,18.3,EMG
+Arousals|Arousals,Arousal|Arousal (),14906.8,15.4,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,15004.4,15.4,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,15034.4,15.4,SaO2
+Arousals|Arousals,Arousal|Arousal (),15442.8,22.3,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,15505.0,20.0,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,15535.0,20.0,SaO2
+Arousals|Arousals,Arousal|Arousal (),15670.8,14.4,EMG
+Arousals|Arousals,Arousal|Arousal (),16437.2,8.8,EMG
+Arousals|Arousals,Arousal|Arousal (),17183.4,10.8,EMG
+Arousals|Arousals,Arousal|Arousal (),18088.9,16.1,EMG
+Arousals|Arousals,Arousal|Arousal (),18236.3,18.9,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,18296.8,28.1,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),18325.1,20.1,EMG
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,18326.8,28.1,SaO2
+Arousals|Arousals,Arousal|Arousal (),18409.1,11.1,EMG
+Arousals|Arousals,Arousal|Arousal (),18646.4,5.6,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,18658.0,14.0,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,18688.0,14.0,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,18690.6,22.7,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,18720.6,22.7,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,18739.2,18.3,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),18761.4,6.1,EMG
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,18769.2,18.3,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,18779.6,19.6,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,18809.6,19.6,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,18815.0,24.6,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),18835.7,11.8,EMG
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,18845.0,24.6,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,18868.4,15.4,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,18898.4,15.4,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,18910.7,15.1,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,18940.7,15.1,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,18943.5,12.0,NEW AIR
+Respiratory|Respiratory,Hypopnea|Hypopnea,18970.1,23.6,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,18973.5,12.0,SaO2
+Arousals|Arousals,Arousal|Arousal (),18996.5,7.4,EMG
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,19000.1,23.6,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,19012.1,32.8,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),19039.8,25.4,EMG
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,19042.1,32.8,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,19074.3,23.7,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),19096.8,12.3,EMG
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,19104.3,23.7,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,19110.3,25.9,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),19132.9,13.9,EMG
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,19140.3,25.9,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,19152.6,30.0,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),19180.5,19.7,EMG
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,19182.6,30.0,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,19256.2,12.6,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,19286.2,12.6,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,19304.5,10.7,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),19312.7,14.5,EMG
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,19334.5,10.7,SaO2
+Arousals|Arousals,Arousal|Arousal (),19384.5,9.8,EMG
+Arousals|Arousals,Arousal|Arousal (),19437.2,18.0,EMG
+Arousals|Arousals,Arousal|Arousal (),19754.5,4.7,EMG
+Arousals|Arousals,Arousal|Arousal (),19831.1,9.2,EMG
+Arousals|Arousals,Arousal|Arousal (),20006.7,3.8,EMG
+Arousals|Arousals,Arousal|Arousal (),20221.8,7.4,EMG
+Arousals|Arousals,Arousal|Arousal (),20240.2,10.0,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,20684.5,22.4,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,20714.5,22.4,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,20732.8,26.2,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,20762.8,26.2,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,20773.0,12.0,NEW AIR
+Respiratory|Respiratory,Hypopnea|Hypopnea,20795.3,14.2,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,20803.0,12.0,SaO2
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,20825.3,14.2,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,20828.0,10.0,NEW AIR
+Respiratory|Respiratory,Hypopnea|Hypopnea,20852.0,13.0,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,20858.0,10.0,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,20870.8,19.9,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,20882.0,13.0,SaO2
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,20900.8,19.9,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,20937.0,12.0,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,20967.0,12.0,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,20976.9,10.4,NEW AIR
+Respiratory|Respiratory,Hypopnea|Hypopnea,21003.0,11.0,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,21006.9,10.4,SaO2
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,21033.0,11.0,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,21068.8,13.6,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,21098.8,13.6,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,21123.4,23.1,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,21153.4,23.1,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,21159.4,14.6,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,21189.4,14.6,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,21198.3,11.3,NEW AIR
+Respiratory|Respiratory,Hypopnea|Hypopnea,21219.0,11.0,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,21228.3,11.3,SaO2
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,21249.0,11.0,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,21268.7,25.9,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,21298.7,25.9,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,21359.3,14.9,NEW AIR
+Respiratory|Respiratory,Hypopnea|Hypopnea,21388.7,12.6,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,21389.3,14.9,SaO2
+Arousals|Arousals,Arousal|Arousal (),21412.8,22.4,EMG
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,21430.0,3.0,SaO2
+Arousals|Arousals,Arousal|Arousal (),21729.3,5.9,EMG
+Arousals|Arousals,Arousal|Arousal (),21902.2,6.8,EMG
+Arousals|Arousals,Arousal|Arousal (),21941.4,5.4,EMG
+Arousals|Arousals,Arousal|Arousal (),21960.4,8.9,EMG
+Arousals|Arousals,Arousal|Arousal (),22038.7,6.9,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,22047.0,11.0,NEW AIR
+Respiratory|Respiratory,SpO2 desaturation|SpO2 desaturation,22077.0,11.0,SaO2
+Arousals|Arousals,Arousal|Arousal (),22108.2,4.0,EMG
+Arousals|Arousals,Arousal|Arousal (),22171.9,5.4,EMG
+Arousals|Arousals,Arousal|Arousal (),22260.9,16.6,EMG
+Arousals|Arousals,Arousal|Arousal (),22392.6,17.6,EMG
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,22455.0,3.0,SaO2
+Arousals|Arousals,Arousal|Arousal (),22650.7,8.9,EMG
+Arousals|Arousals,Arousal|Arousal (),22747.1,9.1,EMG
+Arousals|Arousals,Arousal|Arousal (),22821.5,8.5,EMG
+Arousals|Arousals,Arousal|Arousal (),22883.7,7.8,EMG
+Arousals|Arousals,Arousal|Arousal (),22939.0,11.2,EMG
+Arousals|Arousals,Arousal|Arousal (),22980.7,29.5,EMG
+Arousals|Arousals,Arousal|Arousal (),23246.6,18.6,EMG
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,23295.0,3.0,SaO2
+Arousals|Arousals,Arousal|Arousal (),23390.7,9.8,EMG
+Arousals|Arousals,Arousal|Arousal (),23421.6,11.4,EMG
+Arousals|Arousals,Arousal|Arousal (),23563.8,5.1,EMG
+Arousals|Arousals,Arousal|Arousal (),23789.6,9.7,EMG
+Arousals|Arousals,Arousal|Arousal (),23885.7,24.5,EMG
+Arousals|Arousals,Arousal|Arousal (),23989.2,11.0,EMG
+Arousals|Arousals,Arousal|Arousal (),24072.9,17.3,EMG
+Arousals|Arousals,Arousal|Arousal (),24128.6,9.5,EMG
+Arousals|Arousals,Arousal|Arousal (),24158.2,6.2,EMG
+Arousals|Arousals,Arousal|Arousal (),24197.6,17.2,EMG
+Arousals|Arousals,Arousal|Arousal (),24249.9,20.3,EMG
+Arousals|Arousals,Arousal|Arousal (),24373.3,8.8,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,24436.4,14.8,NEW AIR
+Respiratory|Respiratory,Hypopnea|Hypopnea,24503.0,12.0,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),24723.0,12.2,EMG
+Arousals|Arousals,Arousal|Arousal (),24747.2,6.5,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,24764.2,13.9,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),24788.4,7.0,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,24802.7,19.6,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),24831.7,23.5,EMG
+Arousals|Arousals,Arousal|Arousal (),24951.2,5.1,EMG
+Arousals|Arousals,Arousal|Arousal (),25031.7,4.8,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,25047.1,17.1,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),25069.7,7.5,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,25092.0,11.3,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),25131.5,8.7,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,25208.2,13.2,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),25222.8,22.4,EMG
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,25244.0,4.0,SaO2
+Arousals|Arousals,Arousal|Arousal (),25291.2,6.4,EMG
+Arousals|Arousals,Arousal|Arousal (),25330.6,7.4,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,25424.2,18.0,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),25634.1,6.7,EMG
+Arousals|Arousals,Arousal|Arousal (),25674.1,3.6,EMG
+Arousals|Arousals,Arousal|Arousal (),25761.0,14.9,EMG
+Arousals|Arousals,Arousal|Arousal (),26095.5,19.7,EMG
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,26112.0,4.0,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,26150.5,48.0,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),26197.3,12.0,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,26229.4,34.1,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),26262.1,10.1,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,26287.0,25.0,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),26314.0,5.5,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,26332.0,33.0,NEW AIR
+Respiratory|Respiratory,Hypopnea|Hypopnea,26382.0,15.0,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),26399.7,10.7,EMG
+Respiratory|Respiratory,Hypopnea|Hypopnea,26450.8,11.7,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),26473.7,16.5,EMG
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,26491.0,3.0,SaO2
+Respiratory|Respiratory,Hypopnea|Hypopnea,26559.1,13.0,NEW AIR
+Arousals|Arousals,Arousal|Arousal (),26586.8,18.0,EMG
+Arousals|Arousals,Arousal|Arousal (),26650.7,13.0,EMG
+Arousals|Arousals,Arousal|Arousal (),26680.7,5.8,EMG
+Arousals|Arousals,Arousal|Arousal (),26704.3,6.0,EMG
+Arousals|Arousals,Arousal|Arousal (),26730.8,4.3,EMG
+Arousals|Arousals,Arousal|Arousal (),26830.1,19.8,EMG
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,26884.0,20.0,SaO2
+Arousals|Arousals,Arousal|Arousal (),27160.1,6.4,EMG
+Arousals|Arousals,Arousal|Arousal (),27204.3,8.7,EMG
+Arousals|Arousals,Arousal|Arousal (),27231.3,6.2,EMG
+Arousals|Arousals,Arousal|Arousal (),27254.5,4.5,EMG
+Arousals|Arousals,Arousal|Arousal (),27273.4,26.5,EMG
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,27674.0,15.0,SaO2
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,27698.0,20.0,SaO2
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,27718.0,27.0,SaO2
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,27759.0,23.0,SaO2
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,27803.0,17.0,SaO2
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,27833.0,126.0,SaO2
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,27996.0,90.0,SaO2
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,28107.0,5.0,SaO2
+Respiratory|Respiratory,SpO2 artifact|SpO2 artifact,28121.0,547.0,SaO2

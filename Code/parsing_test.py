@@ -1,4 +1,10 @@
 import pyedflib
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+
 # https://pyedflib.readthedocs.io/en/latest/ref/edfreader.html
 
 from defs import *
@@ -196,7 +202,7 @@ resampled_edf_signals = resample_signals(edf_signals, sampling_rates, target_rat
 pd_resampled_edf_signals = pd.DataFrame(resampled_edf_signals)
 #print(pd_resampled_edf_signals.head())
 # Print loaded EDF signals
-
+#pd_resampled_edf_signals.to_csv("edf_df", encoding='utf-8', index=False)
 
 #XML
 xml_path = "/Users/tvq/Documents/FYS_STK_P3/SHHS_dataset/shhs1-200001-nsrr.xml"
@@ -204,6 +210,7 @@ xml_annotations = parse_xml_annotations(xml_path)
 df_xml_annotations = pd.DataFrame(xml_annotations)
 #print(df_xml_annotations.head())
 #print(df_xml_annotations.to_string())
+#df_xml_annotations.to_csv("xml_df", encoding='utf-8', index=False)
 
 
 
@@ -211,7 +218,54 @@ df_xml_annotations = pd.DataFrame(xml_annotations)
 
 window_size = 30  # Window size in seconds
 combined_df = segment_and_label_edf_data(pd_resampled_edf_signals, df_xml_annotations, window_size)
+#combined_df.to_csv("combined_df", encoding='utf-8', index=False)
 
+""" 
 # View the combined DataFrame with segments and labels
-print(combined_df.to_string())
+#print(combined_df.to_string())
+# Import necessary metrics for imbalanced classification
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix, roc_auc_score, precision_score, recall_score, f1_score
 
+from sklearn.model_selection import train_test_split
+
+# Separate features (X) and labels (y)
+X = combined_df.drop(columns=["Start Time", "End Time", "Label"])
+y = combined_df["Label"]
+
+# Split into training and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Logistic Regression Pipeline with Standard Scaling
+logistic_pipeline = make_pipeline(StandardScaler(), LogisticRegression(random_state=42))
+
+# Train the Logistic Regression model
+logistic_pipeline.fit(X_train, y_train)
+y_pred_logistic = logistic_pipeline.predict(X_test)
+y_pred_proba_logistic = logistic_pipeline.predict_proba(X_test)[:, 1]
+
+# Evaluate Logistic Regression performance
+print("Logistic Regression Results")
+print(classification_report(y_test, y_pred_logistic))
+print("Accuracy:", accuracy_score(y_test, y_pred_logistic))
+print("Precision (class 1):", precision_score(y_test, y_pred_logistic, pos_label=1))
+print("Recall (class 1):", recall_score(y_test, y_pred_logistic, pos_label=1))
+print("F1-Score (class 1):", f1_score(y_test, y_pred_logistic, pos_label=1))
+print("ROC-AUC Score:", roc_auc_score(y_test, y_pred_proba_logistic))
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred_logistic))
+
+# Random Forest Model
+rf_model = RandomForestClassifier(random_state=42)
+rf_model.fit(X_train, y_train)
+y_pred_rf = rf_model.predict(X_test)
+y_pred_proba_rf = rf_model.predict_proba(X_test)[:, 1]
+
+# Evaluate Random Forest performance
+print("\nRandom Forest Results")
+print(classification_report(y_test, y_pred_rf))
+print("Accuracy:", accuracy_score(y_test, y_pred_rf))
+print("Precision (class 1):", precision_score(y_test, y_pred_rf, pos_label=1))
+print("Recall (class 1):", recall_score(y_test, y_pred_rf, pos_label=1))
+print("F1-Score (class 1):", f1_score(y_test, y_pred_rf, pos_label=1))
+print("ROC-AUC Score:", roc_auc_score(y_test, y_pred_proba_rf))
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred_rf))
+"""
