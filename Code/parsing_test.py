@@ -71,7 +71,6 @@ def resample_signals(signals, sampling_rates, target_rate=1):
 
 # XML annotation parsing functions
 import xml.etree.ElementTree as ET
-from datetime import timedelta
 
 import pandas as pd
 
@@ -108,46 +107,54 @@ def parse_xml_annotations(xml_file_path):
 #Need to use sliding window: Segments EDF data into windows of a fixed size and labels each window based on overlap with XML annotations.
 
 
-def segment_and_label_edf_data(edf_df, annotations_df, window_size=30, relevant_event_type="Respiratory|Respiratory"):
+def segment_and_label_edf_data(edf_df, xml_annontations_df, window_size=30):
     """
     Segments EDF data into windows of a fixed size and labels each window based on overlap with relevant XML annotations.
 
     Parameters:
         edf_df (DataFrame): Resampled EDF data where each column is a channel.
-        annotations_df (DataFrame): XML annotations with 'start', 'duration', and 'signal_location'.
+        xml_annontations_df (DataFrame): XML annotations which is used for labeling
         window_size (int): Size of each window in seconds.
-        relevant_event_type (str): The event type to use for labeling, e.g., apnea events.
 
     Returns:
         DataFrame: Combined DataFrame with each window and its corresponding label.
     """
-    sampling_rate = 1  # Assuming resampled to 1 Hz
+    # Set parameters and initialize list
+    sampling_rate = 1  # this could be a parameter
     samples_per_window = window_size * sampling_rate
     segments = []
 
+    # Set apnea-related events in XML which the label puts as 1, this could also be a parameter.
+    apnea_related_events = ["Obstructive apnea|Obstructive Apnea", "Hypopnea|Hypopnea", "SpO2 desaturation|SpO2 desaturation"]
+
     num_windows = len(edf_df) // samples_per_window
 
+    # Go through all the windows
     for i in range(num_windows):
-        # Define the start and end time of the window
         segment_start = i * window_size
         segment_end = segment_start + window_size
 
         # Extract the segment from EDF data
-        segment = edf_df.iloc[i * samples_per_window : (i + 1) * samples_per_window]
+        # This line extracts a window of data from edf_df starting at i * samples_per_window and ending at (i + 1)
+        # * samples_per_window. The window size here is defined by samples_per_window
+        # (e.g., 30 samples for a 30-second window if resampled to 1 Hz).
+        segment = edf_df.iloc[i * samples_per_window: (i + 1) * samples_per_window]
 
         # Initialize the label as 0 (non-apnea)
         label = 0
 
         # Check if any relevant annotation overlaps with the segment
-        for _, event in annotations_df.iterrows():
-            if event["event_type"] == relevant_event_type:
+        # "_," is the index of the row, "event" is the row.
+        for _, event in xml_annontations_df.iterrows():
+            # if event_conept is in "apnea_related_events" list
+            if event["event_concept"] in apnea_related_events:
                 event_start = event["start"]
                 event_end = event["start"] + event["duration"]
 
-                # If there's any overlap with a relevant event, label the segment as 1
+                # If event_start and event_end is within the segment_start and segment_end
                 if (event_start < segment_end) and (event_end > segment_start):
                     label = 1
-                    break  # No need to check further if label is set to 1
+                    break
 
         # Flatten the segment data into a single row for each channel
         segment_flat = segment.values.flatten()
@@ -160,11 +167,9 @@ def segment_and_label_edf_data(edf_df, annotations_df, window_size=30, relevant_
 
         segments.append(segment_dict)
 
-    # Create DataFrame from segments
     combined_df = pd.DataFrame(segments)
 
     return combined_df
-
 
 
 
@@ -189,7 +194,7 @@ resampled_edf_signals = resample_signals(edf_signals, sampling_rates, target_rat
 
 
 pd_resampled_edf_signals = pd.DataFrame(resampled_edf_signals)
-print(pd_resampled_edf_signals.head())
+#print(pd_resampled_edf_signals.head())
 # Print loaded EDF signals
 
 
@@ -197,7 +202,7 @@ print(pd_resampled_edf_signals.head())
 xml_path = "/Users/tvq/Documents/FYS_STK_P3/SHHS_dataset/shhs1-200001-nsrr.xml"
 xml_annotations = parse_xml_annotations(xml_path)
 df_xml_annotations = pd.DataFrame(xml_annotations)
-print(df_xml_annotations.head())
+#print(df_xml_annotations.head())
 #print(df_xml_annotations.to_string())
 
 
