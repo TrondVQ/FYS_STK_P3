@@ -22,6 +22,7 @@ This one datafile captures physiological and environmental signals recorded duri
 ---
 
 ### Channels and Measurements
+Source: https://sleepdata.org/datasets/shhs/pages/10-montage-and-sampling-rate-information-shhs1.md
 | Channel           | Description                              | Sampling rate | Notes                                           |
 |-------------------|------------------------------------------|---------------|-------------------------------------------------|
 | **SaO2** (Useful) | Oxygen saturation levels                 | 1 Hz          | Potential artifacts with negative values        |
@@ -78,3 +79,8 @@ Sleep Stages (Don't need to use this for supervised learning):
 and:
 <EventConcept>Stage 3 sleep|3</EventConcept> -> where stage is from 1-3, with wake as 0. REM sleep|5 and 4 -> ? not in this data set
 
+### Combining the dataset
+The respiratory abnormalities which are the focus of the SHHS are apneas and hypopneas. An apnea is a complete or 
+almost complete cessation of airflow, lasting at least 10 seconds,
+and usually associated with desaturation or an arousal. 
+A hypopnea is a reduction in airflow (<70% of a “baseline” level), associated with desaturation or arousal."

@@ -10,6 +10,8 @@ from sklearn.preprocessing import StandardScaler
 #LOGGER = getConfigLogger(__name__)
 
 # General EDF signal functions from Marta (one of my supervisors)
+#Husk recording start og slutt -> kanskje kutt de ut
+#Husk example files : istedenfor ekte data.
 
 def load_edf_signals(nsdrid, channels):
     # Get edf file path
@@ -59,7 +61,6 @@ def get_channel_signal(f, channel, channel_id):
 
 #### own code:
 
-
 #Resampling code:
 from scipy.signal import resample
 def resample_signals(signals, sampling_rates, target_rate=1):
@@ -106,98 +107,68 @@ def parse_xml_annotations(xml_file_path):
     return events
 
 #Combine the two
-#Need to use sliding window: Segments EDF data into windows of a fixed size and labels each window based on overlap with XML annotations.
-
-
-def segment_and_label_edf_data(edf_df, xml_annontations_df, window_size=30):
+#The basic thought is to use the XML data to find the proper labels for Apnea and hypopnea events
+# So we use the XML data to label the EDF data using their event types and durations.
+    # Ex if the XML data has an event type "Obstructive apnea|Obstructive Apnea" with a duration of 10 seconds,
+    # find the corresponding EDF data points and label them as apnea events.(1)
+    # Do the same for hypopnea events.
+def label_edf_from_xml(edf_df, xml_annotations_df):
     """
-    Segments EDF data into windows of a fixed size and labels each window based on overlap with relevant XML annotations.
+    Labels EDF data points with separate columns for apnea and hypopnea events based on XML annotations.
 
     Parameters:
-        edf_df (DataFrame): Resampled EDF data where each column is a channel.
-        xml_annontations_df (DataFrame): XML annotations which is used for labeling
-        window_size (int): Size of each window in seconds.
+        edf_df (DataFrame): Resampled EDF data with time indices.
+        xml_annotations_df (DataFrame): XML annotations with start, duration, and event types.
 
     Returns:
-        DataFrame: Combined DataFrame with each window and its corresponding label.
+        DataFrame: EDF data with added 'Apnea Label' and 'Hypopnea Label' columns.
     """
-    # Set parameters and initialize list
-    sampling_rate = 1  # this could be a parameter
-    samples_per_window = window_size * sampling_rate
-    segments = []
 
-    # Set apnea-related events in XML which the label puts as 1, this could also be a parameter.
-    apnea_related_events = ["Obstructive apnea|Obstructive Apnea", "Hypopnea|Hypopnea", "SpO2 desaturation|SpO2 desaturation"]
+    edf_df["Apnea Label"] = 0
+    edf_df["Hypopnea Label"] = 0
 
-    num_windows = len(edf_df) // samples_per_window
+    #Find the relevant events from the XML data. Also make sure that their duration is at least 10 seconds(Criteria)
+    apnea_events = xml_annotations_df[
+        (xml_annotations_df["event_concept"] == "Obstructive apnea|Obstructive Apnea") &
+        (xml_annotations_df["duration"] >= 10)
+        ]
+    hypopnea_events = xml_annotations_df[
+        (xml_annotations_df["event_concept"] == "Hypopnea|Hypopnea") &
+        (xml_annotations_df["duration"] >= 10)
+        ]
 
-    # Go through all the windows
-    for i in range(num_windows):
-        segment_start = i * window_size
-        segment_end = segment_start + window_size
+    # Label EDF data points for apnea events, the first item is a index, so skip that.
+    for _, event in apnea_events.iterrows():
+        event_start = event["start"]
+        event_end = event["start"] + event["duration"]
+        edf_df.loc[(edf_df.index >= event_start) & (edf_df.index < event_end), "Apnea Label"] = 1
 
-        # Extract the segment from EDF data
-        # This line extracts a window of data from edf_df starting at i * samples_per_window and ending at (i + 1)
-        # * samples_per_window. The window size here is defined by samples_per_window
-        # (e.g., 30 samples for a 30-second window if resampled to 1 Hz).
-        segment = edf_df.iloc[i * samples_per_window: (i + 1) * samples_per_window]
+    # Label EDF data points for hypopnea events, the first item is a index, so skip that.
+    for _, event in hypopnea_events.iterrows():
+        event_start = event["start"]
+        event_end = event["start"] + event["duration"]
+        edf_df.loc[(edf_df.index >= event_start) & (edf_df.index < event_end), "Hypopnea Label"] = 1
 
-        # Initialize the label as 0 (non-apnea)
-        label = 0
-
-        # Check if any relevant annotation overlaps with the segment
-        # "_," is the index of the row, "event" is the row.
-        for _, event in xml_annontations_df.iterrows():
-            # if event_conept is in "apnea_related_events" list
-            if event["event_concept"] in apnea_related_events:
-                event_start = event["start"]
-                event_end = event["start"] + event["duration"]
-
-                # If event_start and event_end is within the segment_start and segment_end
-                if (event_start < segment_end) and (event_end > segment_start):
-                    label = 1
-                    break
-
-        # Flatten the segment data into a single row for each channel
-        segment_flat = segment.values.flatten()
-        segment_dict = {f"{col}_t{t}": segment_flat[t] for t, col in enumerate(segment.columns)}
-
-        # Append segment data and label
-        segment_dict['Start Time'] = segment_start
-        segment_dict['End Time'] = segment_end
-        segment_dict['Label'] = label
-
-        segments.append(segment_dict)
-
-    combined_df = pd.DataFrame(segments)
-
-    return combined_df
-
-
+    return edf_df
 
 #Example usage:
-
 #EDF
-
 #Currently a direct file, otherwise will have a id and for loop
 edf_path = "../SHHS_dataset/shhs1-200001.edf"
 
-#Load the relevant channels
+#Load the relevant channels (the ones noted in the XML file)
 sleep_ap_channels = ["SaO2", "EMG", "NEW AIR", "ABDO RES"]
 edf_signals, sampling_rates = load_edf_signals(0, channels=sleep_ap_channels)
 """ 
-#Original -> cannot become a pandas data frame. array length is not the same
+#Original without resampling -> cannot become a pandas data frame. array length is not the same
 for ch, sig in edf_signals.items():
     print(f"{ch}: {sig[:10]}")
 """
 
-#Resample to get the same sampling rate
+#Resample to get the same sampling rate. Choose 1 as target rate as SpO2 is 1 Hz
 resampled_edf_signals = resample_signals(edf_signals, sampling_rates, target_rate=1)
-
-
 pd_resampled_edf_signals = pd.DataFrame(resampled_edf_signals)
 #print(pd_resampled_edf_signals.head())
-# Print loaded EDF signals
 #pd_resampled_edf_signals.to_csv("edf_df", encoding='utf-8', index=False)
 
 #XML
@@ -210,58 +181,8 @@ df_xml_annotations = pd.DataFrame(xml_annotations)
 
 
 
-#Combine - er ikke helt ferdig
-
-window_size = 30  # Window size in seconds
-combined_df = segment_and_label_edf_data(pd_resampled_edf_signals, df_xml_annotations, window_size)
-#combined_df.to_csv("combined_df", encoding='utf-8', index=False)
-
-""" 
-# View the combined DataFrame with segments and labels
-#print(combined_df.to_string())
-# Import necessary metrics for imbalanced classification
-from sklearn.metrics import classification_report, accuracy_score, confusion_matrix, roc_auc_score, precision_score, recall_score, f1_score
-
-from sklearn.model_selection import train_test_split
-
-# Separate features (X) and labels (y)
-X = combined_df.drop(columns=["Start Time", "End Time", "Label"])
-y = combined_df["Label"]
-
-# Split into training and test sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# Logistic Regression Pipeline with Standard Scaling
-logistic_pipeline = make_pipeline(StandardScaler(), LogisticRegression(random_state=42))
-
-# Train the Logistic Regression model
-logistic_pipeline.fit(X_train, y_train)
-y_pred_logistic = logistic_pipeline.predict(X_test)
-y_pred_proba_logistic = logistic_pipeline.predict_proba(X_test)[:, 1]
-
-# Evaluate Logistic Regression performance
-print("Logistic Regression Results")
-print(classification_report(y_test, y_pred_logistic))
-print("Accuracy:", accuracy_score(y_test, y_pred_logistic))
-print("Precision (class 1):", precision_score(y_test, y_pred_logistic, pos_label=1))
-print("Recall (class 1):", recall_score(y_test, y_pred_logistic, pos_label=1))
-print("F1-Score (class 1):", f1_score(y_test, y_pred_logistic, pos_label=1))
-print("ROC-AUC Score:", roc_auc_score(y_test, y_pred_proba_logistic))
-print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred_logistic))
-
-# Random Forest Model
-rf_model = RandomForestClassifier(random_state=42)
-rf_model.fit(X_train, y_train)
-y_pred_rf = rf_model.predict(X_test)
-y_pred_proba_rf = rf_model.predict_proba(X_test)[:, 1]
-
-# Evaluate Random Forest performance
-print("\nRandom Forest Results")
-print(classification_report(y_test, y_pred_rf))
-print("Accuracy:", accuracy_score(y_test, y_pred_rf))
-print("Precision (class 1):", precision_score(y_test, y_pred_rf, pos_label=1))
-print("Recall (class 1):", recall_score(y_test, y_pred_rf, pos_label=1))
-print("F1-Score (class 1):", f1_score(y_test, y_pred_rf, pos_label=1))
-print("ROC-AUC Score:", roc_auc_score(y_test, y_pred_proba_rf))
-print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred_rf))
-"""
+#Combine - må snakke med veileder
+combined_df = label_edf_from_xml(pd_resampled_edf_signals, df_xml_annotations)
+combined_df.to_csv("combined_df", encoding='utf-8', index=False)
+print(combined_df.to_string())
+#print(combined_df.head())

@@ -56,7 +56,7 @@ have opted for.
 
     Part a). The first part deals with structuring and reading the data, much
     along the same lines as done in projects 1 and 2. Explain how the data are
-    produced and place them in a proper context.
+    produced and place them in a proper context.(Teori og prepressessing)
 
     Part b). You need to include at least two central algorithms, or as an alternative explore methods from decisions tree to bagging, random forests and
     boosting. Explain the basics of the methods you have chosen to work with. This
