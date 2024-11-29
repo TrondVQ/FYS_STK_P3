@@ -1,9 +1,4 @@
 import pyedflib
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import StandardScaler
 
 # https://pyedflib.readthedocs.io/en/latest/ref/edfreader.html
 
@@ -12,6 +7,8 @@ from sklearn.preprocessing import StandardScaler
 # General EDF signal functions from Marta (one of my supervisors)
 #Husk recording start og slutt -> kanskje kutt de ut
 #Husk example files : istedenfor ekte data.
+
+# see parta_SHHS1_preprosessing
 
 def load_edf_signals(nsdrid, channels):
     # Get edf file path
@@ -106,55 +103,78 @@ def parse_xml_annotations(xml_file_path):
 
     return events
 
-#Combine the two
-#The basic thought is to use the XML data to find the proper labels for Apnea and hypopnea events
-# So we use the XML data to label the EDF data using their event types and durations.
-    # Ex if the XML data has an event type "Obstructive apnea|Obstructive Apnea" with a duration of 10 seconds,
-    # find the corresponding EDF data points and label them as apnea events.(1)
-    # Do the same for hypopnea events.
-def label_edf_from_xml(edf_df, xml_annotations_df):
+
+
+def segment_and_label_edf_data(edf_df, xml_annotations_df, window_size=30):
     """
-    Labels EDF data points with separate columns for apnea and hypopnea events based on XML annotations.
+    Segments EDF data into windows of a fixed size and labels each window based on overlap with relevant XML annotations.
 
     Parameters:
-        edf_df (DataFrame): Resampled EDF data with time indices.
-        xml_annotations_df (DataFrame): XML annotations with start, duration, and event types.
+        edf_df (DataFrame): Resampled EDF data where each column is a channel.
+        xml_annotations_df (DataFrame): XML annotations used for labeling.
+        window_size (int): Size of each window in seconds.
 
     Returns:
-        DataFrame: EDF data with added 'Apnea Label' and 'Hypopnea Label' columns.
+        DataFrame: Combined DataFrame with each window and its corresponding label.
     """
+    # Set parameters and initialize list
+    sampling_rate = 1  # This could be a parameter
+    samples_per_window = window_size * sampling_rate
+    segments = []
 
-    edf_df["Apnea Label"] = 0
-    edf_df["Hypopnea Label"] = 0
+    # Set apnea-related events in XML, which label as 1. This could also be a parameter.
+    apnea_related_events = ["Obstructive apnea|Obstructive Apnea", "Hypopnea|Hypopnea"]
 
-    #Find the relevant events from the XML data. Also make sure that their duration is at least 10 seconds(Criteria)
-    apnea_events = xml_annotations_df[
-        (xml_annotations_df["event_concept"] == "Obstructive apnea|Obstructive Apnea") &
-        (xml_annotations_df["duration"] >= 10)
-        ]
-    hypopnea_events = xml_annotations_df[
-        (xml_annotations_df["event_concept"] == "Hypopnea|Hypopnea") &
-        (xml_annotations_df["duration"] >= 10)
-        ]
+    num_windows = len(edf_df) // samples_per_window
 
-    # Label EDF data points for apnea events, the first item is a index, so skip that.
-    for _, event in apnea_events.iterrows():
-        event_start = event["start"]
-        event_end = event["start"] + event["duration"]
-        edf_df.loc[(edf_df.index >= event_start) & (edf_df.index < event_end), "Apnea Label"] = 1
+    # Go through all the windows
+    for i in range(num_windows):
+        segment_start = i * window_size
+        segment_end = segment_start + window_size
 
-    # Label EDF data points for hypopnea events, the first item is a index, so skip that.
-    for _, event in hypopnea_events.iterrows():
-        event_start = event["start"]
-        event_end = event["start"] + event["duration"]
-        edf_df.loc[(edf_df.index >= event_start) & (edf_df.index < event_end), "Hypopnea Label"] = 1
+        # Extract the segment from EDF data
+        segment = edf_df.iloc[i * samples_per_window: (i + 1) * samples_per_window]
 
-    return edf_df
+        # Initialize the label as 0 (non-apnea)
+        label = 0
+
+        # Check if any relevant annotation overlaps with the segment
+        for _, event in xml_annotations_df.iterrows():
+            if event["event_concept"] in apnea_related_events:
+                event_start = event["start"]
+                event_end = event["start"] + event["duration"]
+
+                # Calculate overlap duration
+                overlap_start = max(segment_start, event_start)
+                overlap_end = min(segment_end, event_end)
+                overlap_duration = overlap_end - overlap_start
+
+                # Check if the overlap is at least 10 seconds
+                if overlap_duration >= 10:
+                    label = 1
+                    break
+
+        # Flatten the segment data into a single row for each channel
+        segment_dict = {}
+        for col in segment.columns:
+            for i in range(len(segment[col])):
+                segment_dict[f"{col}"] = segment.iloc[i][col]
+
+        # Append segment data and label
+        segment_dict['Start Time'] = segment_start
+        segment_dict['End Time'] = segment_end
+        segment_dict['Apena/Hypopnea'] = label
+
+        segments.append(segment_dict)
+
+    combined_df = pd.DataFrame(segments)
+
+    return combined_df
 
 #Example usage:
 #EDF
 #Currently a direct file, otherwise will have a id and for loop
-edf_path = "../SHHS_dataset/shhs1-200001.edf"
+edf_path = "../SHHS_dataset/edf_files/shhs1-200001.edf"
 
 #Load the relevant channels (the ones noted in the XML file)
 sleep_ap_channels = ["SaO2", "EMG", "NEW AIR", "ABDO RES"]
@@ -172,17 +192,17 @@ pd_resampled_edf_signals = pd.DataFrame(resampled_edf_signals)
 #pd_resampled_edf_signals.to_csv("edf_df", encoding='utf-8', index=False)
 
 #XML
-xml_path = "../SHHS_dataset/shhs1-200001-nsrr.xml"
+xml_path = "../SHHS_dataset/annontation_files/shhs1-200001-nsrr.xml"
 xml_annotations = parse_xml_annotations(xml_path)
 df_xml_annotations = pd.DataFrame(xml_annotations)
 #print(df_xml_annotations.head())
 #print(df_xml_annotations.to_string())
 #df_xml_annotations.to_csv("xml_df", encoding='utf-8', index=False)
 
-
-
 #Combine - må snakke med veileder
-combined_df = label_edf_from_xml(pd_resampled_edf_signals, df_xml_annotations)
-combined_df.to_csv("combined_df", encoding='utf-8', index=False)
-print(combined_df.to_string())
-#print(combined_df.head())
+combined_df = segment_and_label_edf_data(pd_resampled_edf_signals, df_xml_annotations)
+combined_df.to_csv("combined_window_df", encoding='utf-8', index=False)
+#print(combined_index_df.to_string())
+#print(combined_index_df.head())
+
+
