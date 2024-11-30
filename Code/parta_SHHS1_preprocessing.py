@@ -14,7 +14,7 @@ import xml.etree.ElementTree as ET
 EDF_FOLDER = "../SHHS_dataset/edf_files"
 XML_FOLDER = "../SHHS_dataset/annontation_files"
 OUTPUT_FOLDER = "./processed_data/"
-COMBINED_FILE = "./combined_dataset.csv" # 1-25 -> can add it on you own. just use combined/processed data directly
+COMBINED_FILE = "./combined_dataset.csv" # 1-25 / 100 -> can add it on you own. just use combined/processed data directly
 
 
 def get_edf_channels(file_path, channels):
