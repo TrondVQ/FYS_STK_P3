@@ -39,7 +39,15 @@ def get_edf_channels(file_path, channels):
             if channel_id is not None:
                 signals[channel] = f.readSignal(channel_id)
             else:
-                print(f"Channel {channel} not found in {file_path}")
+                if channel == "NEW AIR": #New Air will have alternative names. https://sleepdata.org/datasets/shhs/pages/08-equipment-shhs1.md
+                    print(f"NEW AIR not found. Trying AIRFLOW in EDF file {file_path}")
+                    channel_id = signal_channels.get("AIRFLOW")
+                    if channel_id is not None:
+                        print("AIRFLOW found")
+                        signals["NEW AIR"] = f.readSignal(channel_id)
+                        sampling_rates["NEW AIR"] = sampling_rates.pop("AIRFLOW") #need to change the name to NEW AIR
+                else:
+                    print(f"Channel {channel} not found in {file_path}")
 
     return signals, sampling_rates
 
@@ -215,4 +223,5 @@ def process_all_files(edf_folder, xml_folder, target_channels, target_rate=1, ou
 
 # Example usage
 sleep_apnea_channels = ["SaO2", "EMG", "NEW AIR", "ABDO RES"]
+#process_single_file("/Users/tvq/Documents/FYS_STK_P3/SHHS_dataset/edf_files/shhs1-200022.edf", "/Users/tvq/Documents/FYS_STK_P3/SHHS_dataset/annontation_files/shhs1-200022-nsrr.xml", sleep_apnea_channels, 1)
 process_all_files(EDF_FOLDER, XML_FOLDER, target_channels=sleep_apnea_channels, target_rate=1)
