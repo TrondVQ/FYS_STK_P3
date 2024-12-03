@@ -5,7 +5,7 @@ from sklearn.utils import resample
 from project2_classes_and_functions import *
 from sklearn.preprocessing import StandardScaler
 
-### Data Preparation ### About the same as in partb_randomforest.py
+### Data Preparation ### About the same as in partb_randomforest.py, but with numpy arrays
 
 # Load the combined dataset
 combined_df = pd.read_csv("./combined_dataset.csv")
