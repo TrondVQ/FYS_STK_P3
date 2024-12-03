@@ -46,10 +46,8 @@ y_train_balanced = balanced_train_data["Apnea/Hypopnea"].values.reshape(-1, 1)
 #Normalize the datasets
 scaler = StandardScaler()
 X_train_balanced = scaler.fit_transform(X_train_balanced)
-X_test_balanced = scaler.transform(X_test.values)
-
 X_train_unbalanced = scaler.fit_transform(X_train_unbalanced)
-X_test_unbalanced = scaler.transform(X_test.values)
+X_test_scaled = scaler.transform(X_test.values)
 
 # Architechture: NEED TO TUNE THESE
 balanced_nn = NetworkClass(
@@ -89,38 +87,23 @@ unbalanced_nn.train(
     lmbd=0.001
 )
 
-#Evaluation for balanced data
-balanced_train_predictions = balanced_nn.predict(X_train_balanced)
-balanced_test_predictions = balanced_nn.predict(X_test_balanced)
+### Evaluation ###
+def evaluate_model(model, X_test, y_test, dataset_name): #Same function for FFNN, CNN, RNN
+    print(f"Evaluation for {dataset_name} Dataset:")
+    #test_loss, test_accuracy = model.evaluate(X_test, y_test)
+    # print(f"Test Loss: {test_loss:.4f}, Test Accuracy: {test_accuracy:.4f}")
 
-balanced_train_predictions_binary = (balanced_train_predictions >= 0.5).astype(int)
-balanced_test_predictions_binary = (balanced_test_predictions >= 0.5).astype(int)
+    y_pred_probs = model.predict(X_test)
+    y_pred = (y_pred_probs > 0.5).astype(int)
 
-print("Balanced Data Evaluation:")
-print("Train Classification Report:")
-print(classification_report(y_train_balanced, balanced_train_predictions_binary))
-print("Test Classification Report:")
-print(classification_report(y_test.values, balanced_test_predictions_binary))
+    print("Classification Report:")
+    print(classification_report(y_test, y_pred, target_names=["Normal", "Apnea/Hypopnea"]))
 
-balanced_train_auc = roc_auc_score(y_train_balanced, balanced_train_predictions)
-balanced_test_auc = roc_auc_score(y_test.values, balanced_test_predictions)
-print(f"Balanced Train AUC-ROC: {balanced_train_auc:.4f}")
-print(f"Balanced Test AUC-ROC: {balanced_test_auc:.4f}")
+    auc_score = roc_auc_score(y_test, y_pred_probs)
+    print(f"AUC Score: {auc_score:.4f}")
 
-#Evaluation for unbalanced data
-unbalanced_train_predictions = unbalanced_nn.predict(X_train_unbalanced)
-unbalanced_test_predictions = unbalanced_nn.predict(X_test_unbalanced)
+# Evaluate the RNN trained on balanced data
+evaluate_model(balanced_nn, X_test_scaled, y_test.values, "Balanced")
 
-unbalanced_train_predictions_binary = (unbalanced_train_predictions >= 0.5).astype(int)
-unbalanced_test_predictions_binary = (unbalanced_test_predictions >= 0.5).astype(int)
-
-print("Unbalanced Data Evaluation:")
-print("Train Classification Report:")
-print(classification_report(y_train_unbalanced, unbalanced_train_predictions_binary))
-print("Test Classification Report:")
-print(classification_report(y_test.values, unbalanced_test_predictions_binary))
-
-unbalanced_train_auc = roc_auc_score(y_train_unbalanced, unbalanced_train_predictions)
-unbalanced_test_auc = roc_auc_score(y_test.values, unbalanced_test_predictions)
-print(f"Unbalanced Train AUC-ROC: {unbalanced_train_auc:.4f}")
-print(f"Unbalanced Test AUC-ROC: {unbalanced_test_auc:.4f}")
+# Evaluate the RNN trained on unbalanced data
+evaluate_model(unbalanced_nn, X_test_scaled, y_test.values, "Unbalanced")
