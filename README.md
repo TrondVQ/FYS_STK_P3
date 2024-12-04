@@ -1,5 +1,6 @@
 # FYSTK4155 Autumn 2024 - Project 3  Data Analysis with Machine Learning
 
+
 ### Installation
 To set up the project locally, follow these steps:
 
@@ -15,6 +16,10 @@ To set up the project locally, follow these steps:
     if python3 run:
     pip3 install numpy matplotlib scikit-learn imageio seaborn autograd
     ```
+3. ** Dataset files:**
+    The dataset files included in the repository are some randomly generated example files. 
+    The real SHHS1 dataset files are not included in the repository due to privacy reasons. The SHHS1 dataset files can be downloaded from the following link (you will need to apply for access):
+    https://sleepdata.org/datasets/shhs
 
 ### Project Structure
 - **Code/**: Contains the final Python code for exercises a)-e).
