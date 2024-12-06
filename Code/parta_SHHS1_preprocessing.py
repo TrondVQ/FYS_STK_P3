@@ -8,13 +8,13 @@ import xml.etree.ElementTree as ET
 # resamples the signals, and segments the data into windows of a fixed size.
 # The code will then label each window based on the overlap with relevant XML annotations.
 # The processed data will be saved as a combined dataset CSV file.
-# No need to run this file as the combined dataset is already provided in the repository.
+# No need to run this file as the combined dataset(combined_dataset.csv) is already provided in the repository.
 
 #Path to folders
 EDF_FOLDER = "../SHHS_dataset/edf_files"
 XML_FOLDER = "../SHHS_dataset/annontation_files"
 OUTPUT_FOLDER = "./processed_data/"
-COMBINED_FILE = "./combined_dataset.csv" # 1-25 / 100 -> can add it on you own. just use combined/processed data directly
+COMBINED_FILE = "./combined_dataset.csv" #  To process your own files-> can add the SHHS1 files to the SHHS_dataset folder
 
 
 def get_edf_channels(file_path, channels):
