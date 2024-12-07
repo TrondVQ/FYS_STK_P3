@@ -106,38 +106,40 @@ def parse_xml_annotations(xml_file_path):
     return events
 
 
-def segment_and_label_edf_data(edf_df, xml_annotations_df, window_size=30):
+def segment_and_label_edf_data(edf_df, xml_annotations_df, window_size=30, overlap_size=10):
     """
-    Segments EDF data into windows of a fixed size and labels each window based on overlap with relevant XML annotations.
+    Segments EDF data into windows of a fixed size with overlap, and labels each window based on overlap with relevant XML annotations.
 
     Parameters:
         edf_df (DataFrame): Resampled EDF data where each column is a channel.
         xml_annotations_df (DataFrame): XML annotations used for labeling.
         window_size (int): Size of each window in seconds.
+        overlap_size (int): Size of overlap in seconds between the windows
 
     Returns:
         DataFrame: Combined DataFrame with each window and its corresponding label.
     """
-    sampling_rate = 1  # This could be a parameter
-    samples_per_window = window_size * sampling_rate
     segments = []
 
     apnea_related_events = ["Obstructive apnea|Obstructive Apnea", "Hypopnea|Hypopnea"]
 
-    num_windows = len(edf_df) // samples_per_window
+    window_step_size = window_size - overlap_size
+    num_windows = len(edf_df) // window_step_size
 
     for i in range(num_windows):
-        segment_start = i * window_size
+        segment_start = i * window_step_size
         segment_end = segment_start + window_size
 
-        segment = edf_df.iloc[i * samples_per_window: (i + 1) * samples_per_window]
+        segment = edf_df.iloc[segment_start: segment_end]
 
-        label = 0
+        label = 0  #0 = no apnea/hypopnea
         for _, event in xml_annotations_df.iterrows():
+            #if annontation is annotated as hypopnea/apnea
             if event["event_concept"] in apnea_related_events:
                 event_start = event["start"]
                 event_end = event["start"] + event["duration"]
 
+                # If there is 10 seconds overlap between the annontation and the window, label the segment as apnea/hypopnea
                 overlap_start = max(segment_start, event_start)
                 overlap_end = min(segment_end, event_end)
                 overlap_duration = overlap_end - overlap_start
