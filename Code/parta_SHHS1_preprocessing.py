@@ -106,7 +106,7 @@ def parse_xml_annotations(xml_file_path):
     return events
 
 
-def segment_and_label_edf_data(edf_df, xml_annotations_df, window_size=30, overlap_size=10):
+def segment_and_label_edf_data(edf_df, xml_annotations_df, window_size=30, overlap_size=15):
     """
     Segments EDF data into windows of a fixed size with overlap, and labels each window based on overlap with relevant XML annotations.
 
