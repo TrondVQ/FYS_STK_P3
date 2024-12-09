@@ -11,10 +11,11 @@ To set up the project locally, follow these steps:
     ```
 
 2. **Install the required dependencies:**
+    Note that tensorflow only supports Python 3.9–3.12
     ```sh
-    pip install numpy matplotlib scikit-learn imageio seaborn autograd
+    pip install numpy matplotlib scikit-learn pandas tensorflow pyedflib
     if python3 run:
-    pip3 install numpy matplotlib scikit-learn imageio seaborn autograd
+    pip3 install numpy matplotlib scikit-learn pandas tensorflow pyedflib
     ```
 3. ** Dataset files:**
     The dataset files included in the repository are some randomly generated example files. 
