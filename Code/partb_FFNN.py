@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 from sklearn.metrics import classification_report, roc_auc_score
 from sklearn.model_selection import train_test_split
@@ -8,7 +9,9 @@ from sklearn.preprocessing import StandardScaler
 ### Data Preparation ### About the same as in partb_randomforest.py, but with numpy arrays
 
 # Load the combined dataset
-combined_df = pd.read_csv("./combined_dataset.csv")
+current_dir = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(current_dir, 'combined_dataset.csv')
+combined_df = pd.read_csv(file_path)
 
 features = combined_df[["SaO2", "EMG", "NEW AIR", "ABDO RES"]]
 labels = combined_df["Apnea/Hypopnea"]
