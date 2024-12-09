@@ -3,6 +3,7 @@ import pandas as pd
 from pyedflib import EdfReader
 from scipy.signal import resample
 import xml.etree.ElementTree as ET
+import numpy as np
 
 #This is the code that will be used to preprocess the SHHS1 dataset where it combines the EDF and XML files,
 # resamples the signals, and segments the data into windows of a fixed size.
@@ -39,15 +40,21 @@ def get_edf_channels(file_path, channels):
             if channel_id is not None:
                 signals[channel] = f.readSignal(channel_id)
             else:
-                if channel == "NEW AIR": #New Air will have alternative names. https://sleepdata.org/datasets/shhs/pages/08-equipment-shhs1.md
-                    print(f"NEW AIR not found. Trying AIRFLOW in EDF file {file_path}")
-                    channel_id = signal_channels.get("AIRFLOW")
-                    if channel_id is not None:
-                        print("AIRFLOW found")
-                        signals["NEW AIR"] = f.readSignal(channel_id)
-                        sampling_rates["NEW AIR"] = sampling_rates.pop("AIRFLOW") #need to change the name to NEW AIR
+                if channel == "NEW AIR": #New Air will have alternative names. https://sleepdata.org/datasets/shhs/pages/08-equipment-shhs1.md.
+                    print(f"NEW AIR not found. Trying Alternative names in EDF file {file_path}")
+                    alt_names= ["AUX", "NEWAIR", "new A/F", "airflow", "AIRFLOW"] #The files with Airflow are double-checked to be correct as channel 12 sometimes has this name as well. Files: 51, 54, 43, 37, 05, 61, 74
+                    for alt_name in alt_names:
+                        if alt_name in signal_channels:
+                            print(f"Found {alt_name} in channel list.")
+                            channel_id = signal_channels[alt_name]
+                            signals["NEW AIR"] = f.readSignal(channel_id)
+                            sampling_rates["NEW AIR"] = sampling_rates.pop(alt_name)  # Update the name in the dictionary
+                            break
                 else:
                     print(f"Channel {channel} not found in {file_path}")
+
+    if "NEW AIR" not in signals:
+        print(f"Warning: 'NEW AIR/AIRFLOW' channel is missing in {file_path}.")
 
     return signals, sampling_rates
 
