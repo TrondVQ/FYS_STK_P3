@@ -13,9 +13,9 @@ To set up the project locally, follow these steps:
 2. **Install the required dependencies:**
     Note that tensorflow only supports Python 3.9–3.12
     ```sh
-    pip install numpy matplotlib scikit-learn pandas tensorflow pyedflib
+    pip install numpy matplotlib scikit-learn pandas tensorflow==2.12.0  pyedflib imblearn
     if python3 run:
-    pip3 install numpy matplotlib scikit-learn pandas tensorflow pyedflib
+    pip3 install numpy matplotlib scikit-learn pandas tensorflow==2.12.0 pyedflib imblearn
     ```
 3. ** Dataset files:**
     The dataset files included in the repository are some randomly generated example files. 
