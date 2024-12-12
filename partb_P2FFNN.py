@@ -5,11 +5,7 @@ from sklearn.utils import resample
 from project2_classes_and_functions import *
 from project3_functions import *
 from sklearn.model_selection import RandomizedSearchCV
-from sklearn.model_selection import train_test_split, RandomizedSearchCV, StratifiedKFold
 from scipy.stats import uniform, randint
-from sklearn.neural_network import MLPClassifier
-import numpy as np
-from imblearn.over_sampling import SMOTE
 
 ### Data Preparation ### About the same as in partb_randomforest.py, but with numpy arrays
 
@@ -25,7 +21,7 @@ features = combined_df[["SaO2", "EMG", "NEW AIR", "ABDO RES"]]
 labels = combined_df["Apnea/Hypopnea"]
 X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state = seed)
 
-y_test = y_test.values
+y_test = y_test.values.reshape(-1,1)
 
 #Standardization
 mean = X_train.mean(axis=0)
@@ -38,7 +34,7 @@ X_test = (X_test - mean) / std
 # We will also see the effect of balancing on the model performance.
 
 # The original unbalanced dataset -> These are converted to numpy. also y train now is also 2d
-X_train_unbalanced, y_train_unbalanced = X_train.values, y_train.values
+X_train_unbalanced, y_train_unbalanced = X_train.values, y_train.values.reshape(-1,1)
 
 # Creating a balanced dataset using random oversampling
 # Separate majority and minority classes
@@ -58,7 +54,7 @@ minority_class_OS = resample(
 balanced_train_data = pd.concat([majority_class, minority_class_OS])
 #These are converted to numpy
 X_train_balanced = balanced_train_data[["SaO2", "EMG", "NEW AIR", "ABDO RES"]].values
-y_train_balanced = balanced_train_data["Apnea/Hypopnea"].values
+y_train_balanced = balanced_train_data["Apnea/Hypopnea"].values.reshape(-1,1)
 
 
 ##Random undersampling
@@ -74,40 +70,48 @@ undersampled_data = pd.concat([majority_class_undersampled, minority_class])
 
 # Split into features and labels
 X_train_undersampled = undersampled_data[["SaO2", "EMG", "NEW AIR", "ABDO RES"]].values
-y_train_undersampled = undersampled_data["Apnea/Hypopnea"].values
+y_train_undersampled = undersampled_data["Apnea/Hypopnea"].values.reshape(-1,1)
 
 
-
+from imblearn.over_sampling import SMOTE
 
 # Initialize SMOTE
 smote = SMOTE(random_state=seed)
 
 # Apply SMOTE to training data. smote returns numpy array
 X_train_smote, y_train_smote = smote.fit_resample(X_train, y_train)
-y_train_smote = y_train_smote.values
+y_train_smote = y_train_smote.values.reshape(-1,1)
+
+# Project 2 FFNN implementation -> use the best architechture there even though it is a different dataset. classification
 
 
-
-
+from sklearn.model_selection import GridSearchCV
 
 # Grid search
 #Based on this article: https://pmc.ncbi.nlm.nih.gov/articles/PMC11567982/
-#From the previous project: . A hyperparameter grid search showed that higher learning rates (η) and lower regularization values (λ) generally led to better results. + leaky relu (tho cant test this here)
-#using the same rang as from project 2
-#Source: https://sklearner.com/scikit-learn-random-search-mlpclassifier/
-
 param_grid = {
-    'hidden_layer_sizes': [(50,), (100,), (150,), (200,), (50, 50), (100, 100)],
-    'activation': ['relu', 'logistic', 'tanh'],
-    'learning_rate_init': uniform(0.0001, 0.01),
-    'alpha': uniform(0.0001, 0.01),
-    'max_iter': randint(300, 1000), # we know from the baseline that it needs more than 200 to converge
-    'batch_size': [16, 32, 64, 128]
+    'n_estimators': [50, 100, 200, 300, 500],
+    'max_depth': [None, 10, 20, 30, 40, 50],
+    'min_samples_split': [2, 5, 10, 20],
+    'min_samples_leaf': [1, 2, 4, 8],
+    'max_features': ['sqrt', 'log2', 0.2, 0.5],
 }
+
+balanced_nn_SMOTE = NetworkClass()
+
+unbalanced_nn = NetworkClass(
+    cost_fun=CostCrossEntropy,
+    cost_der=CostCrossEntropyDer,
+    network_input_size=X_train_balanced.shape[1],
+    layer_output_sizes=[50, 1],
+    activation_funcs=[ReLU, sigmoid],
+    activation_ders=[ReLU_der, sigmoid_derivative]
+)
+
 
 # Create the grid search object
 random_search_smote = RandomizedSearchCV(
-    estimator= MLPClassifier(random_state=seed, max_iter = 500), #setting max iter here incase
+    estimator=RandomForestClassifier(random_state = seed),
     param_distributions=param_grid,
     n_iter=100, 
     scoring='roc_auc',  # AUC for imbalanced data
@@ -118,7 +122,7 @@ random_search_smote = RandomizedSearchCV(
 )
 
 random_search_unbalanced = RandomizedSearchCV(
-    estimator= MLPClassifier(random_state=seed, max_iter = 500),
+    estimator=RandomForestClassifier(random_state = seed),
     param_distributions=param_grid,
     n_iter=100, 
     scoring='roc_auc',  # AUC for imbalanced data
@@ -128,58 +132,95 @@ random_search_unbalanced = RandomizedSearchCV(
     n_jobs=-1
 )
 
-# Fit the grid search to the balanced training data
-##random_search_smote.fit(X_train_smote, y_train_smote)
-
-# Best parameters and model
-#print("Best Hyperparameters for balanced dataset using SMOTE:", random_search_smote.best_params_)
-#best_FFNN_model_smote = random_search_smote.best_estimator_
-
-# Fit the grid search to the balanced training data
-random_search_unbalanced.fit(X_train_unbalanced, y_train_unbalanced)
-
-# Best parameters and model
-print("Best Hyperparameters for unbalanced dataset:", random_search_unbalanced.best_params_)
-best_FFNN_model_unbalanced = random_search_unbalanced.best_estimator_
-
 ### Evaluation ###
 
-#evaluate_model(best_FFNN_model_smote, X_test, y_test, "ffnn", "Balanced - SMOTE")
+evaluate_model(balanced_nn_SMOTE, X_test, y_test, "ffnn", "Balanced - SMOTE")
 
 # Evaluate the RNN trained on unbalanced data
-evaluate_model(best_FFNN_model_unbalanced, X_test, y_test, "ffnn", "Unbalanced")
+evaluate_model(unbalanced_nn, X_test, y_test, "ffnn", "Unbalanced")
 
 
 """ 
 #Baseline
+balanced_nn_SMOTE = NetworkClass(
+    cost_fun=CostCrossEntropy,
+    cost_der=CostCrossEntropyDer,
+    network_input_size=X_train_balanced.shape[1],
+    layer_output_sizes=[50, 1],
+    activation_funcs=[ReLU, sigmoid],
+    activation_ders=[ReLU_der, sigmoid_derivative]
+)
 
-balanced_nn_SMOTE.fit(
+unbalanced_nn = NetworkClass(
+    cost_fun=CostCrossEntropy,
+    cost_der=CostCrossEntropyDer,
+    network_input_size=X_train_balanced.shape[1],
+    layer_output_sizes=[50, 1],
+    activation_funcs=[ReLU, sigmoid],
+    activation_ders=[ReLU_der, sigmoid_derivative]
+)
+
+# Train the networks. NEED TO TUNE THE PARAMETERS
+
+
+balanced_nn_SMOTE.train(
     X_train_balanced,
-    y_train_balanced
+    y_train_balanced,
+    epochs=100,
+    batch_size=32,
+    learning_rate=0.01,
+    lmbd=0.001
 )
 
 
-unbalanced_nn.fit(
+unbalanced_nn.train(
     X_train_unbalanced,
-    y_train_unbalanced
+    y_train_unbalanced,
+    epochs=100,
+    batch_size=32,
+    learning_rate=0.01,
+    lmbd=0.001
+)
+balanced_nn_OS = NetworkClass(
+    cost_fun=CostCrossEntropy,
+    cost_der=CostCrossEntropyDer,
+    network_input_size=X_train_balanced.shape[1],
+    layer_output_sizes=[50, 1],
+    activation_funcs=[ReLU, sigmoid],
+    activation_ders=[ReLU_der, sigmoid_derivative]
 )
 
+balanced_nn_US = NetworkClass(
+    cost_fun=CostCrossEntropy,
+    cost_der=CostCrossEntropyDer,
+    network_input_size=X_train_balanced.shape[1],
+    layer_output_sizes=[50, 1],
+    activation_funcs=[ReLU, sigmoid],
+    activation_ders=[ReLU_der, sigmoid_derivative]
+)
 
-
-balanced_nn_OS.fit(
+balanced_nn_OS.train(
     X_train_balanced,
-    y_train_balanced
+    y_train_balanced,
+    epochs=100,
+    batch_size=32,
+    learning_rate=0.01,
+    lmbd=0.001
 )
 
-balanced_nn_US.fit(
+balanced_nn_US.train(
     X_train_balanced,
-    y_train_balanced
+    y_train_balanced,
+    epochs=100,
+    batch_size=32,
+    learning_rate=0.01,
+    lmbd=0.001
 )
 
+# Evaluate the RNN trained on balanced data
 evaluate_model(balanced_nn_OS, X_test, y_test, "ffnn", "Balanced - OS")
 
 evaluate_model(balanced_nn_US, X_test, y_test, "ffnn", "Balanced - US")
-unbalanced_nn = MLPClassifier(random_state=seed)
-balanced_nn_OS =MLPClassifier(random_state=seed)
+
 
 """
