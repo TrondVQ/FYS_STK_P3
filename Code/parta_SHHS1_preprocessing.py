@@ -3,33 +3,26 @@ import pandas as pd
 from pyedflib import EdfReader
 from scipy.signal import resample
 import xml.etree.ElementTree as ET
-import numpy as np
 
-#This is the code that will be used to preprocess the SHHS1 dataset where it combines the EDF and XML files,
-# resamples the signals, and segments the data into windows of a fixed size.
-# The code will then label each window based on the overlap with relevant XML annotations.
-# The processed data will be saved as a combined dataset CSV file.
-# No need to run this file as the combined dataset(combined_dataset.csv) is already provided in the repository.
+""" 
+No need to run this file as the combined dataset(combined_dataset.csv) is already provided in the repository. 
+Though the one in the github only contains "fake data" as the original dataset needs permission to access.
 
+This is the code that will be used to preprocess the SHHS1 dataset where it combines the EDF and XML files, 
+ resamples the signals, and segments the data into windows of a fixed size.
+ The code will then label each window based on the overlap with relevant XML annotations.
+ The processed data will be saved as a combined dataset CSV file.
+
+"""
 #Path to folders
 EDF_FOLDER = "../SHHS_dataset/edf_files"
 XML_FOLDER = "../SHHS_dataset/annontation_files"
 OUTPUT_FOLDER = "./processed_data/"
 COMBINED_FILE = "./combined_dataset.csv" #  To process your own files-> can add the SHHS1 files to the SHHS_dataset folder
 
-
+#Get an initial version of this edfReader from Marta Quemada Lopez, but have tuned it for our use-case
+# gets the EDF channels and their sampling rates from the EDF file.
 def get_edf_channels(file_path, channels):
-    """
-    Reads specified channels from an EDF file and returns their signals and sampling rates.
-
-    Parameters:
-        file_path (str): Path to the EDF file.
-        channels (list): List of channel names to extract.
-
-    Returns:
-        signals (dict): Dictionary of channel signals.
-        sampling_rates (dict): Dictionary of sampling rates for each channel.
-    """
     with EdfReader(file_path) as f:
         signal_channels = {chn: i for i, chn in enumerate(f.getSignalLabels())}
         sampling_rates = {chn: f.getSampleFrequency(i) for chn, i in signal_channels.items()}
@@ -58,19 +51,9 @@ def get_edf_channels(file_path, channels):
 
     return signals, sampling_rates
 
-
+#  Resamples all signals to a target sampling rate.
+# Asked ChatGPT for an initial version of this. Has since tuned it.
 def resample_signals(signals, sampling_rates, target_rate=1):
-    """
-    Resamples all signals to a target sampling rate.
-
-    Parameters:
-        signals (dict): Dictionary of signals.
-        sampling_rates (dict): Dictionary of sampling rates for each signal.
-        target_rate (int): Target sampling rate in Hz.
-
-    Returns:
-        dict: Dictionary of resampled signals.
-    """
     resampled_signals = {}
     for channel, signal in signals.items():
         original_rate = sampling_rates[channel]
@@ -78,17 +61,9 @@ def resample_signals(signals, sampling_rates, target_rate=1):
         resampled_signals[channel] = resample(signal, target_length)
     return resampled_signals
 
-
+#    Parses XML annotations and extracts event details.
+# Asked ChatGPT for an initial version of this. Has since tuned it.
 def parse_xml_annotations(xml_file_path):
-    """
-    Parses XML annotations and extracts event details.
-
-    Parameters:
-        xml_file_path (str): Path to the XML annotation file.
-
-    Returns:
-        list: List of event dictionaries containing event details.
-    """
     tree = ET.parse(xml_file_path)
     root = tree.getroot()
     events = []
@@ -112,20 +87,9 @@ def parse_xml_annotations(xml_file_path):
 
     return events
 
-
+# Asked ChatGPT for an initial version of this. Has since tuned it based on domain knowledge and information about the dataset.
+#  Segments EDF data into windows of a fixed size with overlap, and labels each window based on overlap with relevant XML annotations.
 def segment_and_label_edf_data(edf_df, xml_annotations_df, window_size=30, overlap_size=15):
-    """
-    Segments EDF data into windows of a fixed size with overlap, and labels each window based on overlap with relevant XML annotations.
-
-    Parameters:
-        edf_df (DataFrame): Resampled EDF data where each column is a channel.
-        xml_annotations_df (DataFrame): XML annotations used for labeling.
-        window_size (int): Size of each window in seconds.
-        overlap_size (int): Size of overlap in seconds between the windows
-
-    Returns:
-        DataFrame: Combined DataFrame with each window and its corresponding label.
-    """
     segments = []
 
     apnea_related_events = ["Obstructive apnea|Obstructive Apnea", "Hypopnea|Hypopnea"]
@@ -164,20 +128,10 @@ def segment_and_label_edf_data(edf_df, xml_annotations_df, window_size=30, overl
 
     return pd.DataFrame(segments)
 
-
+# Processes a single EDF and XML file pair, resampling and segmenting the data.
+#ChatGPT helped produce both process_single_file and process_all_files
 def process_single_file(edf_file_path, xml_file_path, target_channels, target_rate=1):
-    """
-    Processes a single EDF and XML file pair, resampling and segmenting the data.
 
-    Parameters:
-        edf_file_path (str): Path to the EDF file.
-        xml_file_path (str): Path to the XML file.
-        target_channels (list): Channels to extract from the EDF file.
-        target_rate (int): Target sampling rate for resampling.
-
-    Returns:
-        DataFrame: Combined DataFrame of resampled EDF data and labeled annotations.
-    """
     edf_signals, sampling_rates = get_edf_channels(edf_file_path, target_channels)
 
     resampled_signals = resample_signals(edf_signals, sampling_rates, target_rate=target_rate)
@@ -189,18 +143,8 @@ def process_single_file(edf_file_path, xml_file_path, target_channels, target_ra
     combined_df = segment_and_label_edf_data(edf_df, xml_df)
     return combined_df
 
-
+#Processes all EDF and XML file pairs in the dataset folder and combines them into one DataFrame.
 def process_all_files(edf_folder, xml_folder, target_channels, target_rate=1, output_folder="./processed_data/"):
-    """
-    Processes all EDF and XML file pairs in the dataset folder and combines them into one DataFrame.
-
-    Parameters:
-        edf_folder (str): Path to the folder containing EDF files.
-        xml_folder (str): Path to the folder containing XML files.
-        target_channels (list): Channels to extract from the EDF files.
-        target_rate (int): Target sampling rate for resampling.
-        output_folder (str): Folder to save the processed combined DataFrames.
-    """
     combined_data = []
 
     for edf_file in os.listdir(edf_folder):
@@ -230,7 +174,6 @@ def process_all_files(edf_folder, xml_folder, target_channels, target_rate=1, ou
         print(f"Saved combined dataset to {COMBINED_FILE}")
 
 
-# Example usage
 sleep_apnea_channels = ["SaO2", "EMG", "NEW AIR", "ABDO RES"]
 #process_single_file("/Users/tvq/Documents/FYS_STK_P3/SHHS_dataset/edf_files/shhs1-200022.edf", "/Users/tvq/Documents/FYS_STK_P3/SHHS_dataset/annontation_files/shhs1-200022-nsrr.xml", sleep_apnea_channels, 1)
 process_all_files(EDF_FOLDER, XML_FOLDER, target_channels=sleep_apnea_channels, target_rate=1)
