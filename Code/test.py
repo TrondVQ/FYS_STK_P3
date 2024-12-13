@@ -3,16 +3,15 @@ from sklearn.model_selection import train_test_split
 from sklearn.utils import resample
 import numpy as np
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv1D, MaxPooling1D, Flatten, Dense, Dropout, Input
+from tensorflow.keras.layers import Conv1D, MaxPooling1D, Flatten, Dense, Input
 from tensorflow.keras.regularizers import l2
 from scipy.stats import randint, uniform
-#from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
-from scikeras.wrappers import KerasClassifier, KerasRegressor
+from scikeras.wrappers import KerasClassifier
 from sklearn.model_selection import RandomizedSearchCV, StratifiedKFold
 from imblearn.over_sampling import SMOTE
 from sklearn.metrics import classification_report, roc_auc_score
 import os
-import tensorflow as tf
+#Just to remove som warnings
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1' 
 
@@ -37,8 +36,8 @@ X_train = (X_train - mean) / std
 X_test = (X_test - mean) / std
 
 # Fixed parameters
-timesteps = 30
-num_features = 4
+timesteps = 30 #30s window
+num_features = 4 # SaO2, EMG, NEW AIR, ABDO RES
 
 # Function to create sliding windows
 def create_sliding_windows(data, labels, window_size):
@@ -48,24 +47,6 @@ def create_sliding_windows(data, labels, window_size):
         y.append(labels[i + window_size - 1])
     return np.array(X), np.array(y)
 
-# Prepare training data for oversampling and undersampling
-train_data = pd.concat([X_train, y_train], axis=1)
-majority_class = train_data[train_data["Apnea/Hypopnea"] == 0]
-minority_class = train_data[train_data["Apnea/Hypopnea"] == 1]
-
-# Oversample minority class
-minority_class_OS = resample(minority_class, replace=True, n_samples=len(majority_class), random_state=seed)
-balanced_train_data = pd.concat([majority_class, minority_class_OS])
-X_train_balanced_OS = balanced_train_data[["SaO2", "EMG", "NEW AIR", "ABDO RES"]].values
-y_train_balanced_OS = balanced_train_data["Apnea/Hypopnea"].values.reshape(-1, 1)
-X_train_balanced_OS, y_train_balanced_OS = create_sliding_windows(X_train_balanced_OS, y_train_balanced_OS, timesteps)
-
-# Undersample majority class
-majority_class_undersampled = resample(majority_class, replace=False, n_samples=len(minority_class), random_state=seed)
-undersampled_data = pd.concat([majority_class_undersampled, minority_class])
-X_train_undersampled = undersampled_data[["SaO2", "EMG", "NEW AIR", "ABDO RES"]].values
-y_train_undersampled = undersampled_data["Apnea/Hypopnea"].values.reshape(-1, 1)
-X_train_undersampled, y_train_undersampled = create_sliding_windows(X_train_undersampled, y_train_undersampled, timesteps)
 
 # Apply SMOTE
 smote = SMOTE(random_state=seed)
