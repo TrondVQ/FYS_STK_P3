@@ -1,1 +1,1 @@
-This folder contains GPT chat files, verification code of the classes and functions used in the analysis and leftover code.
+This folder contains leftover code

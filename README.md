@@ -24,5 +24,5 @@ To set up the project locally, follow these steps:
 
 ### Project Structure
 - **Code/**: Contains the final Python code for exercises a(preprosessing of dataset) and b(Random forest, FFNN and CNN algorithms).
-- **Supplemental material/**: Contains GPT chat files, verification code of the classes and functions used in the analysis and leftover code.
+- **Supplemental material/**: Contains leftover code.
 
